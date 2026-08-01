@@ -1,0 +1,133 @@
+ARCHITECTURE DU PROJET (Tron)
+Dernière mise à jour: 2026-07-28
+
+Objectif
+========
+- Engine.dll (C++ / Direct3D 11) : le moteur.
+- Game.exe : le jeu, qui n’utilise que l’API publique de Engine.dll.
+- Assets/ : ressources runtime (shaders, textures, meshes…).
+- Build : CMake + MSVC (Visual Studio 2022 x64), sortie des binaires dans build-msvc/bin/<Config>/.
+
+
+RACINE (solution)
+================
+Tron/
+│
+├── CMakeLists.txt
+├── .gitignore
+├── plan.txt
+├── resume.txt
+├── architecture.txt                  (ce fichier)
+│
+├── Assets/                           (données runtime copiées à côté de Game.exe)
+│   └── Shaders/
+│       ├── Triangle.hlsl             (ancien test pipeline)
+│       └── MeshColor.hlsl            (shader “mesh + tint” utilisé par RenderSystem)
+│
+├── Engine/                           (projet DLL: le moteur)
+│   ├── CMakeLists.txt
+│   ├── Public/                       (API stable consommée par Game)
+│   │   └── EngineAPI.hpp             (C API + handle opaque + stats + resize + message forwarding)
+│   └── Private/                      (implémentation interne du moteur)
+│
+└── Game/                             (projet EXE: le jeu)
+    ├── CMakeLists.txt
+    └── Private/
+        └── WinMain.cpp               (Win32 window + message pump + forward vers Engine.dll)
+
+NOTE build:
+- build-msvc/                         (répertoire de build CMake pour MSVC)
+  - bin/Debug/Game.exe + Engine.dll
+  - bin/Debug/Assets/...              (copie automatique via post-build)
+
+
+ENGINE/PRIVATE (modules actuels)
+================================
+Engine/Private/
+│
+├── EngineAPI.cpp                     (impl des exports: Create/Destroy/Tick/Resize/OnWin32Message/GetStats)
+├── EngineApp.hpp/.cpp                (orchestration: Time -> Input -> ECS update -> RenderSystem)
+│
+├── Platform/
+│   └── Win32Platform.hpp/.cpp        (utils Win32 internes — minimal pour l’instant)
+│
+├── Time/
+│   └── TimeSystem.hpp/.cpp           (QPC: dt/total/fps + fixed-step scaffold)
+│
+├── Input/
+│   └── InputManager.hpp/.cpp         (états clavier/souris, pressed/released, mouse delta, wheel)
+│
+├── ECS/
+│   ├── EntityId.hpp                  (EntityId = index + generation)
+│   ├── EntityRegistry.hpp/.cpp       (create/destroy/isAlive + freelist + generations)
+│   ├── ComponentStorage.hpp          (sparse-set par composant)
+│   ├── IStorage.hpp                  (interface type-erased: IEcsStorage)
+│   ├── StorageWrapper.hpp            (wrap ComponentStorage<T> pour type-erasure)
+│   ├── World.hpp                     (Registry + storages + queries)
+│   │
+│   ├── Components/
+│   │   ├── Transform.hpp             (TRS minimal)
+│   │   ├── Velocity.hpp              (validation queries Transform+Velocity)
+│   │   └── MeshRenderer.hpp          (handles mesh/material + tint)
+│   │
+│   └── Systems/
+│       └── RenderSystem.hpp/.cpp     (query Transform+MeshRenderer -> draw via renderer)
+│
+└── Renderer/
+    ├── D3D11Renderer.hpp/.cpp        (Device/Context/SwapChain/RTV/DSV/Resize + drawMesh)
+    │
+    ├── Resources/
+    │   ├── Handles.hpp               (MeshHandle / MaterialHandle)
+    │   ├── Mesh.hpp                  (VB/IB + counts + topology)
+    │   └── Material.hpp              (ShaderProgram, évoluera en “pipeline state”)
+    │
+    └── Shaders/
+        └── ShaderManager.hpp/.cpp    (compile HLSL + create VS/PS/InputLayout)
+
+
+FRONTIÈRE DLL (règles)
+======================
+- Game.exe inclut uniquement Engine/Public/EngineAPI.hpp.
+- Game.exe ne connaît pas D3D11 (pas de ID3D11* côté jeu).
+- Engine.dll expose une C API:
+  - Engine_Create / Engine_Destroy / Engine_Tick
+  - Engine_Resize
+  - Engine_OnWin32Message (le jeu forward les messages Win32)
+  - Engine_GetFrameStats (stats pour debug overlay côté jeu)
+- Les objets internes du moteur restent opaques à l’extérieur (EngineHandle).
+
+
+ARCHITECTURE CIBLE (plan long terme)
+====================================
+À mesure que le projet avance, Engine/Private s’étendra vers une structure plus complète:
+
+Engine/Private/
+│
+├── Core/                             (memory, logging, threading, serialization)
+├── Application/                      (game loop stages + state machine)
+├── Math/                             (Vec/Mat/Quat, etc.)
+├── Scene/                            (scenes, load/unload)
+├── Renderer/
+│   ├── Resources/                    (textures, samplers, constant buffers, meshes…)
+│   ├── Materials/                    (materials/pipeline states)
+│   ├── PostFX/                       (post-processing)
+│   └── Shaders/                      (shader manager, reflection, hot reload)
+├── Camera/                           (free/FPS/third-person)
+├── Physics/
+│   └── Collision/                    (AABB/Sphere/Ray + broadphase)
+├── Particles/                        (emitters, pools, renderer)
+├── UI/                               (debug UI + runtime UI)
+├── Resources/                        (asset DB, loaders, caching, dedup)
+└── Scripting/                        (Script base class Unity-like + runtime)
+
+
+CONVENTIONS
+===========
+- Headers: .hpp (uniformisé)
+- API publique: minimaliste et stable, pas de STL exposée via la DLL
+- ECS: sparse-set + queries “iterate smallest dense + sparse lookup”
+- Renderer: séparation progressive (ShaderManager, Mesh/Material, puis ResourceManager)
+
+apps-fileview.texmex_20260720.04_p0
+architecture.txt
+Displaying architecture.txt.
