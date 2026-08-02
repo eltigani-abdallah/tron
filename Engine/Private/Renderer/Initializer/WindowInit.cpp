@@ -79,8 +79,8 @@ int CALLBACK WinMain(
     ShowWindow(hWnd, SW_SHOW); // shows the window after it is created
 
 
-    MSG msg;
-    BOOL gResult;
+    MSG msg; // messages from the thread's message queue
+    BOOL gResult; // the result of GetMessages, used to debug the exit code
 
     while ( (gResult = GetMessage(&msg, nullptr, 0,0)) > 0 ) // as long as the message passed from the user is not a message to quit the application...
     {
@@ -89,13 +89,13 @@ int CALLBACK WinMain(
 
     }
 
-    if (gResult == -1){
-        return -1;
+    if (gResult == -1){ // if GetMessage gets a -1 message...
+        return -1; // just close the program with a -1, something went wrong with it though
     }
 
-    else{
+    else{ // if it got any other message than -1...
 
-        return msg.wParam;
+        return msg.wParam; // return said message ( used to debug for the custom exit code)
     }
 
 }
