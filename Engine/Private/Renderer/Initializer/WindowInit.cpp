@@ -59,7 +59,15 @@ int CALLBACK WinMain(
 
     ShowWindow(hWnd, SW_SHOW); // shows the window after it is created
 
-    while (true); // DELETE LATER an infinite loop to actually see the window
+
+    MSG msg;
+
+    while (GetMessage(&msg, nullptr, 0,0) > 0 ) // as long as the message passed from the user is not a message to quit the application...
+    {
+        TranslateMessage(&msg); // translate virtual key messages to character messages then post them to the thread's message queue
+        DispatchMessage(&msg); // dispatch message from GetMessage to the window procedure
+
+    }
 
     return 0; 
 }
