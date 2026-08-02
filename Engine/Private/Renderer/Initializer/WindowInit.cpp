@@ -80,13 +80,22 @@ int CALLBACK WinMain(
 
 
     MSG msg;
+    BOOL gResult;
 
-    while (GetMessage(&msg, nullptr, 0,0) > 0 ) // as long as the message passed from the user is not a message to quit the application...
+    while ( (gResult = GetMessage(&msg, nullptr, 0,0)) > 0 ) // as long as the message passed from the user is not a message to quit the application...
     {
         TranslateMessage(&msg); // translate virtual key messages to character messages then post them to the thread's message queue
         DispatchMessage(&msg); // dispatch message from GetMessage to the window procedure
 
     }
 
-    return 0; 
+    if (gResult == -1){
+        return -1;
+    }
+
+    else{
+
+        return msg.wParam;
+    }
+
 }
