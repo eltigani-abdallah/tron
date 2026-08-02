@@ -2,6 +2,25 @@
 #include <Windows.h>
 
 
+LRESULT CALLBACK WndProc
+    (
+    HWND hWnd,
+    UINT msg,
+    WPARAM wParam,
+    LPARAM lParam
+    )
+{
+
+    switch (msg){
+        case WM_CLOSE:
+            PostQuitMessage(69);
+            break;
+    }
+
+    return DefWindowProc(hWnd, msg, wParam, lParam);
+
+}
+
 int CALLBACK WinMain(
     HINSTANCE hInstance, 
     HINSTANCE hPrevInstance, 
@@ -29,7 +48,7 @@ int CALLBACK WinMain(
 
     wc.cbSize = sizeof(wc); // size of the windows class
     wc.style = CS_OWNDC; // gives the window its own device context for rendering
-    wc.lpfnWndProc = DefWindowProc; // funcion to handle messages to the window and how it looks. DefWindow = default window
+    wc.lpfnWndProc = WndProc; // funcion to handle messages to the window and how it looks. DefWindow = default window
     wc.cbClsExtra = 0; // allows for allocation of extra bytes to the window class. we need none
     wc.cbWndExtra = 0; // allows for allocation of extra bytes to the child windows. we need 0
     wc.hInstance = hInstance; //  handle to the current instance of the application
