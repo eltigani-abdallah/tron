@@ -1,6 +1,8 @@
 #include <iostream>
 #include <Windows.h>
 
+// TODO: refactor code into a proper C++ class
+
 
 LRESULT CALLBACK WndProc
     (
