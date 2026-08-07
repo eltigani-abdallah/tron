@@ -1,4 +1,4 @@
-# Scénario de soutenance (~15 min)
+# Scénario de soutenance
 
 Objectif : montrer d’abord le **moteur**, puis le **jeu** qui l’utilise.
 
@@ -75,12 +75,12 @@ Questions du jury : pointer le code Engine vs Game, CMake `SHARED` + copy shader
 
 ## Aide mémoire contrôles
 
-| Touche | Effet |
-|---|---|
-| ZQSD / WASD | Move |
-| RMB | Look |
-| LMB | Fire |
-| 1 2 3 | Post-process |
-| T | Time scale |
-| Échap / P | Fin de partie → GameOver |
-| SPACE (GameOver) | Retour Menu |
+| Touche           | Effet                    |
+| ---------------- | ------------------------ |
+| ZQSD / WASD      | Move                     |
+| RMB              | Look                     |
+| LMB              | Fire                     |
+| 1 2 3            | Post-process             |
+| T                | Time scale               |
+| Échap / P        | Fin de partie → GameOver |
+| SPACE (GameOver) | Retour Menu              |
