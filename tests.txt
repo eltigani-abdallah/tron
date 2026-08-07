@@ -1,0 +1,30 @@
+Des tests unitaires (TronTests) qui vérifie les briques logiques
+ du moteur et du jeu, sans lancer Direct3D. 53 asserts, 0 échec.
+
+ Ce qu’on teste concrètement:
+ 
+1. Math
+Longueur / normalisation de Vec3, conversion degrés↔radians, Clamp.
+→ la base des transforms / déplacements est correcte.
+
+2. Time
+timeScale divise bien le delta, un gros spike est clampé (max 0,1 s), le slow-mo s’active puis se désactive.
+→ le ralenti in-game n’est pas “au feeling”, il est vérifié.
+
+3. Spatial partition
+Deux AABB proches → une paire candidate ; un objet loin → pas de paire.
+→ la broadphase collisions filtre bien avant les tests fins.
+
+4. World (ECS)
+Créer des entités, ajouter un Transform / des Tag, retrouver par tag, QueueDestroy + FlushDestroyed.
+→ le cœur ECS (create / components / destroy) marche.
+
+5. GameSession
+Score, dégâts HP, victoire par kills ou score, défaite par HP 0.
+→ les règles win/lose du challenge sont testées côté Game.
+
+Ce qu’on ne teste pas:
+Pas de tests GPU / rendu / shaders / input souris — trop dépendants de Windows/D3D. On teste ce qui est déterministe et rapide.
+
+Comment le lancer:
+.\build\bin\Debug\TronTests.exe

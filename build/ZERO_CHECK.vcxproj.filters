@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Abricot\Desktop\Tron2\build\CMakeFiles\50f3b4ad4d8252b60cb3f7124b50d2eb\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{7A0C28F1-3721-3BD8-848A-70974C1ADDB1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

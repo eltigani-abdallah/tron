@@ -1,0 +1,10 @@
+^C:\USERS\ABRICOT\DESKTOP\TRON2\TESTS\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Abricot/Desktop/Tron2 -BC:/Users/Abricot/Desktop/Tron2/build --check-stamp-file C:/Users/Abricot/Desktop/Tron2/build/Tests/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

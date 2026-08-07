@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/Abricot/Desktop/Tron2/build/cmake_install.cmake",
+		"C:/Users/Abricot/Desktop/Tron2/build/Engine/cmake_install.cmake",
+		"C:/Users/Abricot/Desktop/Tron2/build/Game/cmake_install.cmake",
+		"C:/Users/Abricot/Desktop/Tron2/build/Tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

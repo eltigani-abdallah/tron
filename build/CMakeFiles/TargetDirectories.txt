@@ -1,0 +1,5 @@
+C:/Users/Abricot/Desktop/Tron2/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Abricot/Desktop/Tron2/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/Abricot/Desktop/Tron2/build/Engine/CMakeFiles/Engine.dir
+C:/Users/Abricot/Desktop/Tron2/build/Game/CMakeFiles/Game.dir
+C:/Users/Abricot/Desktop/Tron2/build/Tests/CMakeFiles/TronTests.dir

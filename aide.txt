@@ -1,0 +1,25 @@
+.\build\bin\Debug\Game.exe
+
+.\build\bin\Debug\TronTests.exe
+
+Contrôles:
+Action              Touches
+Déplacement         ZQSD / WASD / flèches
+Monter / descendre  E·Espace / Ctrl·C
+Look                Souris DROITE maintenue
+Tir                 Clic GAUCHE
+Post-process        1 normal / 2 désat / 3 néon
+Ralenti             T (toggle) / impact (auto)
+Fin de partie       Échap / P
+Après partie        SPACE ou MENU → rejouer · Échap quitter
+
+Challenge:
+Victoire  6 kills OU score 80
+Défaite   HP 0 ou timer 90s
+
+HUD DRAW/CULL = frustum culling (démo moteur).
+Soutenance: docs/SOUTENANCE.md
+
+Tests:
+cmake --build build --config Debug --target TronTests
+.\build\bin\Debug\TronTests.exe

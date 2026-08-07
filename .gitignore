@@ -1,0 +1,67 @@
+# Build
+build/
+out/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+CTestTestfile.cmake
+Testing/
+*.vcxproj.user
+*.sln.docstates
+
+# Visual Studio / MSVC
+.vs/
+*.suo
+*.user
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+*.VC.db
+*.VC.db-shm
+*.VC.db-wal
+ipch/
+*.obj
+*.o
+*.pch
+*.pdb
+*.idb
+*.ilk
+*.exp
+*.lib
+*.dll
+*.exe
+*.log
+*.tlog
+*.lastbuildstate
+*.recipe
+
+# Keep source; ignore local binaries accidentally at repo root
+bin/
+lib/
+
+# IDE / editor
+.idea/
+.vscode/
+*.code-workspace
+*.swp
+*~
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Local notes / secrets
+.env
+.env.*
+*.local
+
+# Misc
+*.tmp
+*.bak
+*.user

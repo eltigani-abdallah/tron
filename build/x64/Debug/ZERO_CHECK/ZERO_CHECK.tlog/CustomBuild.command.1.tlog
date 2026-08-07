@@ -1,0 +1,10 @@
+^C:\USERS\ABRICOT\DESKTOP\TRON2\BUILD\CMAKEFILES\50F3B4AD4D8252B60CB3F7124B50D2EB\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Abricot/Desktop/Tron2 -BC:/Users/Abricot/Desktop/Tron2/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Abricot/Desktop/Tron2/build/Tron.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
